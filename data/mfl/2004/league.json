@@ -1,0 +1,123 @@
+{
+ "year": 2004,
+ "leagueId": "63823",
+ "name": "Memphis Fantasy Football League",
+ "startWeek": 1,
+ "endWeek": 17,
+ "lastRegularSeasonWeek": 14,
+ "divisions": {
+  "00": "Eastern",
+  "01": "Central",
+  "02": "Western"
+ },
+ "franchises": [
+  {
+   "id": "0001",
+   "name": "Packers",
+   "division": "02",
+   "logoUrl": null,
+   "iconUrl": null,
+   "logo": null,
+   "icon": null
+  },
+  {
+   "id": "0002",
+   "name": "Lightning Strike",
+   "division": "01",
+   "logoUrl": null,
+   "iconUrl": null,
+   "logo": null,
+   "icon": null
+  },
+  {
+   "id": "0003",
+   "name": "Thunderbolts",
+   "division": "02",
+   "logoUrl": null,
+   "iconUrl": null,
+   "logo": null,
+   "icon": null
+  },
+  {
+   "id": "0004",
+   "name": "Red Knights",
+   "division": "02",
+   "logoUrl": null,
+   "iconUrl": null,
+   "logo": null,
+   "icon": null
+  },
+  {
+   "id": "0005",
+   "name": "Predators",
+   "division": "01",
+   "logoUrl": null,
+   "iconUrl": null,
+   "logo": null,
+   "icon": null
+  },
+  {
+   "id": "0006",
+   "name": "Mojo",
+   "division": "00",
+   "logoUrl": null,
+   "iconUrl": null,
+   "logo": null,
+   "icon": null
+  },
+  {
+   "id": "0007",
+   "name": "Paper Shredders",
+   "division": "00",
+   "logoUrl": null,
+   "iconUrl": null,
+   "logo": null,
+   "icon": null
+  },
+  {
+   "id": "0008",
+   "name": "Hammers",
+   "division": "01",
+   "logoUrl": null,
+   "iconUrl": null,
+   "logo": null,
+   "icon": null
+  },
+  {
+   "id": "0009",
+   "name": "Nightmares",
+   "division": "02",
+   "logoUrl": null,
+   "iconUrl": null,
+   "logo": null,
+   "icon": null
+  },
+  {
+   "id": "0010",
+   "name": "Orange Crush",
+   "division": "00",
+   "logoUrl": null,
+   "iconUrl": null,
+   "logo": null,
+   "icon": null
+  },
+  {
+   "id": "0011",
+   "name": "Hooligans",
+   "division": "00",
+   "logoUrl": null,
+   "iconUrl": null,
+   "logo": null,
+   "icon": null
+  },
+  {
+   "id": "0012",
+   "name": "Hawgs",
+   "division": "01",
+   "logoUrl": null,
+   "iconUrl": null,
+   "logo": null,
+   "icon": null
+  }
+ ]
+}

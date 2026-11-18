@@ -1,0 +1,132 @@
+---
+import Badge from "./Badge.astro";
+import TeamLink from "./TeamLink.astro";
+import TrophyCase from "./TrophyCase.astro";
+import { getData, record, points, gamesFor, sideOf, otherSide, finishesFor, fmt, fmt1, pctStr, recStr } from "../lib/data.js";
+import { playerSVG, scoreChart } from "../lib/art.js";
+
+const { team: t, year } = Astro.props; // year = null for the all-time view
+const { games, scores, ownerOf } = getData();
+const mine = (s) => s.team === t;
+const all = gamesFor(games, mine);
+const scoped = year ? all.filter((g) => g.year === year) : all;
+const overall = record(scoped, mine);
+const reg = record(scoped.filter((g) => !g.playoff), mine);
+const po = record(scoped.filter((g) => g.playoff), mine);
+const myScores = scores.filter((s) => s.team === t);
+const regPts = points(myScores.filter((s) => !s.playoff && (!year || s.year === year)));
+const owner = year ? ownerOf(year, t.franchiseId) : t.owner;
+// Other names this owner used on the same franchise.
+const related = owner ? owner.teams.filter((o) => o !== t) : [];
+const trophies = finishesFor((team) => team === t);
+
+let chart, chartTitle;
+if (year) {
+  const pts = myScores.filter((s) => s.year === year).sort((a, b) => a.week - b.week)
+    .map((s) => ({ label: `Wk ${s.week}`, value: s.score, win: !!(s.game?.winner && s.game.winner.team === t) }));
+  chart = scoreChart(pts, { avg: regPts.ppg || undefined });
+  chartTitle = `Weekly scores, ${year}`;
+} else {
+  const pts = t.years.map((y) => {
+    const r = record(all.filter((g) => g.year === y && !g.playoff), mine);
+    return { label: String(y), value: points(myScores.filter((s) => s.year === y && !s.playoff)).ppg, win: r.gp > 0 && r.pct >= 0.5 };
+  }).filter((p) => p.value > 0);
+  chart = scoreChart(pts, { avg: regPts.ppg || undefined });
+  chartTitle = "Points per game by season";
+}
+const seasonRows = t.years.slice().reverse().map((y) => ({
+  y,
+  r: record(all.filter((g) => g.year === y && !g.playoff), mine),
+  p: record(all.filter((g) => g.year === y && g.playoff), mine),
+  ppg: points(myScores.filter((s) => s.year === y && !s.playoff)).ppg,
+}));
+// Game log: every week this season; weeks with no MFL opponent show the score alone.
+const log = year ? myScores.filter((s) => s.year === year).sort((a, b) => b.week - a.week) : [];
+const noH2H = year && log.length && !log.some((s) => s.game);
+const years = [...t.years].reverse();
+const yi = year ? t.years.indexOf(year) : -1;
+const prevY = yi > 0 ? t.years[yi - 1] : null, nextY = yi >= 0 && yi < t.years.length - 1 ? t.years[yi + 1] : null;
+const [p, q] = t.colors;
+---
+<section class="thead" style={`--p:${p};--q:${q}`}>
+  <div class="tcard">
+    <div class="art"><Badge team={t} size={34} /><Fragment set:html={playerSVG(p, q, t.jersey)} /></div>
+    <div class="cap"><b>{t.name}</b><span>Est. {t.first}</span></div>
+  </div>
+  <div class="tname">
+    <span class="label">{owner ? <>Owner: <a href={`/owners/${owner.slug}/`}>{owner.name}</a> · </> : null}Est. {t.first}{!t.active && ` · Retired ${t.last}`}{t.division && t.active ? ` · ${t.division} Division` : ""}</span>
+    <h1><span>{t.name}</span></h1>
+    <div class="pills">
+      <a class="pill" href={`/teams/${t.slug}/`}><span class:list={{ on: !year }}>All-time</span></a>
+      <span class="pill">
+        {year
+          ? <>{prevY ? <a href={`/teams/${t.slug}/${prevY}/`} aria-label="Previous season">◂</a> : <span class="off">◂</span>}<span class="on">{year}</span>{nextY ? <a href={`/teams/${t.slug}/${nextY}/`} aria-label="Next season">▸</a> : <span class="off">▸</span>}</>
+          : <a href={`/teams/${t.slug}/${t.last}/`}>Seasons ▸</a>}
+      </span>
+    </div>
+    {related.length > 0 && <span class="hand" style="font-size:20px">same owner also ran {related.map((r) => `${r.name} (${r.first}–${String(r.last).slice(-2)})`).join(", ")} ✎</span>}
+    {t.note && <span class="hand" style="font-size:20px">{t.note}</span>}
+  </div>
+</section>
+
+<section class="cards">
+  <div class="ic"><div class="k">{year ? "Record" : "All-time record"}</div><div class="v num">{overall.gp ? recStr(overall) : "—"}</div><div class="s">{overall.gp ? `${pctStr(overall.pct)}${po.gp && reg.gp ? ` · ${recStr(reg)} regular` : ""}` : "no head-to-head games on MFL"}</div></div>
+  <div class="ic"><div class="k">Points for</div><div class="v num">{fmt1(regPts.pf)}</div><div class="s">{fmt(regPts.ppg)} per game</div></div>
+  {reg.gp
+    ? <div class="ic"><div class="k">Points against</div><div class="v num">{fmt1(reg.pa)}</div><div class="s">{reg.diff >= 0 ? "+" : ""}{fmt1(reg.diff)} differential</div></div>
+    : <div class="ic"><div class="k">Best week</div><div class="v num">{regPts.high ? fmt(regPts.high.score) : "—"}</div><div class="s">{regPts.high ? `${regPts.high.year} wk ${regPts.high.week}` : ""}</div></div>}
+  <div class="ic"><div class="k">Playoffs</div><div class="v num">{po.gp ? recStr(po) : "—"}</div><div class="s">{po.gp ? `${po.gp} playoff games` : "no playoff games"}</div></div>
+</section>
+
+{chart && (
+  <section class="chartbox">
+    <div class="sect-h" style="margin-bottom:2px"><span style="font-weight:700;font-size:13px">{chartTitle}</span><span class="hand" style="font-size:18px">red dot = {year ? "win" : "winning season"}</span></div>
+    <Fragment set:html={chart} />
+  </section>
+)}
+
+{year ? (
+  <section class="sect">
+    <div class="sect-h"><h2>Game Log</h2>{noH2H && <span class="hand" style="font-size:19px">no head-to-head schedule on MFL this season, just scores</span>}</div>
+    <div class="logrow">
+      {log.map((s) => {
+        const g = s.game;
+        if (!g) return (
+          <a class="gl" href={`/recaps/${s.year}/${s.week}/`}>
+            <span class="wk">Week {s.week}{s.playoff ? " · Playoffs" : ""}</span>
+            <span class="s num">{fmt(s.score)} pts</span>
+          </a>
+        );
+        const me = sideOf(g, mine), them = otherSide(g, mine), w = me.score > them.score;
+        return (
+          <a class="gl" href={`/recaps/${g.year}/${g.week}/`}>
+            <span class="wk">Week {g.week}{g.playoff ? ` · ${g.label ?? "Playoffs"}` : ""}</span>
+            <span class="op">vs <Badge team={them.team} size={20} /> {them.team.name}</span>
+            <span class="s num">{fmt(me.score)} – {fmt(them.score)}</span>
+            <span class:list={["stamp", { L: !w }]}>{me.score === them.score ? "T" : w ? "W" : "L"}</span>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+) : (
+  <>
+    <section class="sect">
+      <div class="sect-h"><h2>Trophy Case</h2><span class="hand" style="font-size:19px">faded = still up for grabs</span></div>
+      <TrophyCase finishes={trophies} />
+    </section>
+    <section class="sect">
+      <h2>Season by Season</h2>
+      <div class="logrow">
+        {seasonRows.map(({ y, r, p, ppg }) => (
+          <a class="gl" href={`/teams/${t.slug}/${y}/`}>
+            <span class="wk">{y} season</span>
+            <span class="s num">{r.gp ? recStr(r) : "scores only"}{p.gp ? ` · ${recStr(p)} playoffs` : ""}</span>
+            <span class="op" style="font-weight:600">{fmt(ppg)} pts/game</span>
+            {trophies.titles.includes(y) && <span class="stamp" style="width:auto;padding:0 6px;border-radius:8px;font-size:11px">CHAMPS</span>}
+          </a>
+        ))}
+      </div>
+    </section>
+  </>
+)}

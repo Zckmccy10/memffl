@@ -1,0 +1,13 @@
+# League-wide settings. Edit here or in the admin page (/admin).
+
+name: Memphis Fantasy Football League
+shortName: MFFL
+# Year the league was founded. Change it any time.
+founded: 1994
+tagline: Lineups on paper since 1994.
+# MyFantasyLeague league ID (the L= number in the league's web address).
+mflLeagueId: 30555
+about: >-
+  Founded in 1994, the Memphis Fantasy Football League is almost as old as some of
+  its members. It survived the days of turning in lineups on paper and waiting for
+  the weekly NFL scores in the newspaper, and it has kept going every year since.

@@ -1,0 +1,20 @@
+{
+  "name": "memffl",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/fetch-mfl.mjs",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "cms": "decap-server"
+  },
+  "dependencies": {
+    "astro": "7.4.12",
+    "marked": "^15.0.0",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "decap-server": "^3.0.0"
+  }
+}

@@ -1,0 +1,123 @@
+{
+ "year": 2023,
+ "leagueId": "30555",
+ "name": "2023 Memphis Fantasy Football League",
+ "startWeek": 1,
+ "endWeek": 17,
+ "lastRegularSeasonWeek": 14,
+ "divisions": {
+  "00": "West",
+  "01": "Central",
+  "02": "East"
+ },
+ "franchises": [
+  {
+   "id": "0001",
+   "name": "Jokers Wild",
+   "division": "01",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2021/30555_franchise_logo0001.png",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2023/30555_franchise_icon0001.png",
+   "logo": "/mfl-logos/fcc3e9ab81e753d8.png",
+   "icon": "/mfl-logos/52c126067befd937.png"
+  },
+  {
+   "id": "0002",
+   "name": "Lightning Strike",
+   "division": "00",
+   "logoUrl": "https://www44.myfantasyleague.com/fflnetdynamic2007/16354_franchise_logo0002.jpg",
+   "iconUrl": "https://www44.myfantasyleague.com/fflnetdynamic2007/16354_franchise_icon0002.jpg",
+   "logo": "/mfl-logos/bd3bd2e3190c67e0.jpg",
+   "icon": "/mfl-logos/3d50cf6eb84426aa.jpg"
+  },
+  {
+   "id": "0003",
+   "name": "Beer Gut Mutts",
+   "division": "02",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2016/30555_franchise_logo0003.jpg",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2016/30555_franchise_icon0003.png",
+   "logo": "/mfl-logos/a98ab71d4a8419a4.jpg",
+   "icon": "/mfl-logos/a8a6fa495fbd5c9c.png"
+  },
+  {
+   "id": "0004",
+   "name": "Red Knights",
+   "division": "00",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0004.jpg",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0004.jpg",
+   "logo": "/mfl-logos/a4fb732a128ac8ec.jpg",
+   "icon": "/mfl-logos/23602f787c5dee8d.jpg"
+  },
+  {
+   "id": "0005",
+   "name": "Predators",
+   "division": "01",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2013/40812_franchise_logo0005.jpg",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2013/40812_franchise_icon0005.jpg",
+   "logo": "/mfl-logos/6b5d90e3de76d25e.jpg",
+   "icon": "/mfl-logos/b9919f84515e8af2.jpg"
+  },
+  {
+   "id": "0006",
+   "name": "Vipers",
+   "division": "00",
+   "logoUrl": "https://www44.myfantasyleague.com/fflnetdynamic2008/10093_franchise_logo0006.jpg",
+   "iconUrl": "https://www44.myfantasyleague.com/fflnetdynamic2008/10093_franchise_icon0006.jpg",
+   "logo": "/mfl-logos/47db67ea35af6a48.jpg",
+   "icon": "/mfl-logos/8d3edb0572bd7e2e.jpg"
+  },
+  {
+   "id": "0007",
+   "name": "Hackers",
+   "division": "01",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2020/30555_franchise_logo0007.png",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2018/30555_franchise_icon0007.png",
+   "logo": "/mfl-logos/3aaa3e8b95c611ed.png",
+   "icon": "/mfl-logos/b9d3e395dfc54671.png"
+  },
+  {
+   "id": "0008",
+   "name": "Purple Cobras",
+   "division": "01",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2020/30555_franchise_logo0008.png",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2023/30555_franchise_icon0008.png",
+   "logo": "/mfl-logos/5f860e6d2ece89a3.png",
+   "icon": "/mfl-logos/16d8bef9df7a3c33.png"
+  },
+  {
+   "id": "0009",
+   "name": "Nightmares",
+   "division": "02",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2022/30555_franchise_logo0009.jpg",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2023/30555_franchise_icon0009.jpg",
+   "logo": "/mfl-logos/8c66f0e7e9dd03a2.jpg",
+   "icon": "/mfl-logos/25a0434d424410e4.jpg"
+  },
+  {
+   "id": "0010",
+   "name": "Bell Ringer",
+   "division": "02",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2023/30555_franchise_icon0010.png",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2023/30555_franchise_icon0010.png",
+   "logo": "/mfl-logos/290f71a1f975932c.png",
+   "icon": "/mfl-logos/290f71a1f975932c.png"
+  },
+  {
+   "id": "0011",
+   "name": "Scranton Stranglers",
+   "division": "00",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2018/30555_franchise_logo0011.jpg",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2018/30555_franchise_icon0011.png",
+   "logo": "/mfl-logos/0e33bf533e0061c3.jpg",
+   "icon": "/mfl-logos/5d325e874cd4f3bd.png"
+  },
+  {
+   "id": "0012",
+   "name": "Black Mamba",
+   "division": "02",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2023/30555_franchise_logo0012.png",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2023/30555_franchise_icon0012.png",
+   "logo": "/mfl-logos/cae858d832ef25ad.png",
+   "icon": "/mfl-logos/ad5222ed47c2d5f5.png"
+  }
+ ]
+}

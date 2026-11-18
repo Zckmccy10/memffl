@@ -1,0 +1,29 @@
+---
+import Base from "../../layouts/Base.astro";
+import Badge from "../../components/Badge.astro";
+import { getData } from "../../lib/data.js";
+const { owners, lastSeason } = getData();
+const current = owners.filter((o) => o.years.includes(lastSeason.year)).sort((a, b) => a.since - b.since);
+const former = owners.filter((o) => !o.years.includes(lastSeason.year));
+---
+<Base title="Owners" active="Owners">
+  <section class="sect">
+    <div class="sect-h"><h1 style="font-size:clamp(34px,5vw,48px)">Owners</h1><span class="hand" style="font-size:20px">the people behind the team names</span></div>
+    {owners.length === 0 && <p class="empty">No owners listed yet. Add each owner and the team slots they've run in the admin page (or <code>content/owners.yaml</code>), and their pages appear here.</p>}
+    <div class="grid-cards">
+      {current.map((o) => (
+        <a class="tcell" href={`/owners/${o.slug}/`} style={`--p:${o.teams[0]?.colors[0] ?? "#2f57c4"}`}>{o.teams[0] ? <Badge team={o.teams[0]} size={46} /> : <span />}<span><b>{o.name}</b><small>Since {o.since} · {o.teams.map((t) => t.name).join(", ")}</small></span></a>
+      ))}
+    </div>
+  </section>
+  {former.length > 0 && (
+    <section class="sect">
+      <h2>Former Owners</h2>
+      <div class="grid-cards">
+        {former.map((o) => (
+          <a class="tcell" href={`/owners/${o.slug}/`} style={`--p:${o.teams[0]?.colors[0] ?? "#6b6860"}`}>{o.teams[0] ? <Badge team={o.teams[0]} size={40} /> : <span />}<span><b>{o.name}</b><small>{o.years[0]}–{o.years.at(-1)}</small></span></a>
+        ))}
+      </div>
+    </section>
+  )}
+</Base>

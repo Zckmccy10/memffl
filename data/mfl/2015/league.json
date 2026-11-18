@@ -1,0 +1,104 @@
+{
+ "year": 2015,
+ "leagueId": "48582",
+ "name": "2015 Memphis Fantasy Football League",
+ "startWeek": 1,
+ "endWeek": 17,
+ "lastRegularSeasonWeek": 13,
+ "divisions": {
+  "00": "American",
+  "01": "National"
+ },
+ "franchises": [
+  {
+   "id": "0001",
+   "name": "Gang Green",
+   "division": "00",
+   "logoUrl": "http://images3.wikia.nocookie.net/__cb20120616002044/glee/images/0/0d/Evil-Hello-Kitty-Halloween-Blood-Knife.jpg",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2012/48889_franchise_icon0001.jpg",
+   "logo": "/mfl-logos/528e7bb1e043c274.jpg",
+   "icon": "/mfl-logos/53d938d67adf2bb8.jpg"
+  },
+  {
+   "id": "0002",
+   "name": "Lightning Strike",
+   "division": "01",
+   "logoUrl": "https://www44.myfantasyleague.com/fflnetdynamic2007/16354_franchise_logo0002.jpg",
+   "iconUrl": "https://www44.myfantasyleague.com/fflnetdynamic2007/16354_franchise_icon0002.jpg",
+   "logo": "/mfl-logos/bd3bd2e3190c67e0.jpg",
+   "icon": "/mfl-logos/3d50cf6eb84426aa.jpg"
+  },
+  {
+   "id": "0003",
+   "name": "Beer Gut Mutts",
+   "division": "00",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2015/48582_franchise_logo0003.jpg",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2015/48582_franchise_icon0003.png",
+   "logo": "/mfl-logos/ee07c2bef15cf435.jpg",
+   "icon": "/mfl-logos/0f2ddcc6fc083b21.png"
+  },
+  {
+   "id": "0004",
+   "name": "Red Knights",
+   "division": "01",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0004.jpg",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0004.jpg",
+   "logo": "/mfl-logos/a4fb732a128ac8ec.jpg",
+   "icon": "/mfl-logos/23602f787c5dee8d.jpg"
+  },
+  {
+   "id": "0005",
+   "name": "Predators",
+   "division": "00",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2013/40812_franchise_logo0005.jpg",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2013/40812_franchise_icon0005.jpg",
+   "logo": "/mfl-logos/6b5d90e3de76d25e.jpg",
+   "icon": "/mfl-logos/b9919f84515e8af2.jpg"
+  },
+  {
+   "id": "0006",
+   "name": "Vipers",
+   "division": "01",
+   "logoUrl": "https://www44.myfantasyleague.com/fflnetdynamic2008/10093_franchise_logo0006.jpg",
+   "iconUrl": "https://www44.myfantasyleague.com/fflnetdynamic2008/10093_franchise_icon0006.jpg",
+   "logo": "/mfl-logos/47db67ea35af6a48.jpg",
+   "icon": "/mfl-logos/8d3edb0572bd7e2e.jpg"
+  },
+  {
+   "id": "0007",
+   "name": "Hackers",
+   "division": "00",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0013.jpg",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0013.jpg",
+   "logo": "/mfl-logos/43c91e7fdaca79e3.jpg",
+   "icon": "/mfl-logos/e9835da03cc79e7b.jpg"
+  },
+  {
+   "id": "0008",
+   "name": "Ducks of Death",
+   "division": "01",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2013/40812_franchise_logo0008.jpg",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2013/40812_franchise_icon0008.jpg",
+   "logo": "/mfl-logos/d998e4d8ccfa453d.jpg",
+   "icon": "/mfl-logos/d39a4a4e81e3042b.jpg"
+  },
+  {
+   "id": "0009",
+   "name": "Nightmares",
+   "division": "01",
+   "logoUrl": "https://www47.myfantasyleague.com/fflnetdynamic2009/40350_franchise_logo0009.jpg",
+   "iconUrl": "https://www49.myfantasyleague.com/fflnetdynamic2011/33732_franchise_icon0009.jpg",
+   "logo": "/mfl-logos/c2ec3b635d5cffca.jpg",
+   "icon": "/mfl-logos/34ff677c55195afd.jpg"
+  },
+  {
+   "id": "0010",
+   "name": "Bell Ringer",
+   "division": "00",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnetdynamic2012/48889_franchise_logo0010.jpg",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnetdynamic2012/48889_franchise_icon0010.jpg",
+   "logo": "/mfl-logos/e58d21c7b60237be.jpg",
+   "icon": "/mfl-logos/68080e0e1d7d1efa.jpg"
+  }
+ ]
+}

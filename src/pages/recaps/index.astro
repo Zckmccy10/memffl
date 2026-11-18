@@ -1,0 +1,25 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getData, latestWeek } from "../../lib/data.js";
+const { seasons, recaps, finishes } = getData();
+const lw = latestWeek();
+const list = [...seasons].reverse().filter((s) => s.weeks.length);
+---
+<Base title="Recaps" active="Recaps">
+  <section class="sect">
+    <div class="sect-h"><h1 style="font-size:clamp(34px,5vw,48px)">Weekly Recaps</h1>
+      {lw && <a class="pill" href={`/recaps/${lw.year}/${lw.week}/`}><span class="on">Latest: {lw.year} · Week {lw.week} →</span></a>}</div>
+    <p class="muted" style="margin:0">Every week since {list.at(-1)?.year}. Weeks with a written recap are underlined in yellow.</p>
+  </section>
+  {list.map((s) => (
+    <section class="sect">
+      <div class="sect-h"><h2>{s.year}</h2>{finishes[s.year]?.champion && <span class="hand" style="font-size:20px">champs: {finishes[s.year].champion.name}</span>}</div>
+      <div class="pills">
+        {s.weeks.map((w) => {
+          const r = recaps[`${s.year}:${w}`];
+          return <a class="pill" href={`/recaps/${s.year}/${w}/`} title={r?.title}><span>{r ? <mark>Wk {w}</mark> : `Wk ${w}`}</span></a>;
+        })}
+      </div>
+    </section>
+  ))}
+</Base>

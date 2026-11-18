@@ -1,0 +1,132 @@
+{
+ "year": 2005,
+ "leagueId": "33329",
+ "name": "Memphis Fantasy Football League",
+ "startWeek": 1,
+ "endWeek": 17,
+ "lastRegularSeasonWeek": 13,
+ "divisions": {
+  "00": "Eastern",
+  "01": "Central",
+  "02": "Western"
+ },
+ "franchises": [
+  {
+   "id": "0001",
+   "name": "Bandidos",
+   "division": "02",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0001.jpg",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0001.jpg",
+   "logo": "/mfl-logos/2cc444cafbabdde9.jpg",
+   "icon": "/mfl-logos/ae376d946f08cdb4.jpg"
+  },
+  {
+   "id": "0002",
+   "name": "Lightning Strike",
+   "division": "01",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0002.jpg",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0002.jpg",
+   "logo": "/mfl-logos/7e08f86e9894ec05.jpg",
+   "icon": "/mfl-logos/daaa628d7a7c0ce1.jpg"
+  },
+  {
+   "id": "0003",
+   "name": "Thunderbolts",
+   "division": "02",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0003.jpg",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0003.jpg",
+   "logo": "/mfl-logos/dd7891c7cf65cde0.jpg",
+   "icon": "/mfl-logos/a05321c5af09ba64.jpg"
+  },
+  {
+   "id": "0004",
+   "name": "Red Knights",
+   "division": "02",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0004.jpg",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0004.jpg",
+   "logo": "/mfl-logos/a4fb732a128ac8ec.jpg",
+   "icon": "/mfl-logos/23602f787c5dee8d.jpg"
+  },
+  {
+   "id": "0005",
+   "name": "Predators",
+   "division": "01",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0005.jpg",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0005.jpg",
+   "logo": "/mfl-logos/9c3cb9f8b5c8234c.jpg",
+   "icon": "/mfl-logos/e26b19c972ee2e67.jpg"
+  },
+  {
+   "id": "0006",
+   "name": "MOJO",
+   "division": "00",
+   "logoUrl": "https://www43.myfantasyleague.com/fflnet2005/helmets/h-0835.gif",
+   "iconUrl": "https://www43.myfantasyleague.com/fflnet2005/helmets/h-0835.gif",
+   "logo": "/mfl-logos/e5a06c6038bf3f64.gif",
+   "icon": "/mfl-logos/e5a06c6038bf3f64.gif"
+  },
+  {
+   "id": "0007",
+   "name": "Paper Shredders",
+   "division": "00",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0007.jpg",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0007.jpg",
+   "logo": "/mfl-logos/0419483199b96f25.jpg",
+   "icon": "/mfl-logos/e15a23125b61cf9e.jpg"
+  },
+  {
+   "id": "0008",
+   "name": "Hammers",
+   "division": "01",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0008.jpg",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0008.jpg",
+   "logo": "/mfl-logos/d3b011109139108d.jpg",
+   "icon": "/mfl-logos/36c51e4aa8ae3914.jpg"
+  },
+  {
+   "id": "0009",
+   "name": "Nightmares",
+   "division": "02",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0009.jpg",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0009.jpg",
+   "logo": "/mfl-logos/63a63bc9f82cb421.jpg",
+   "icon": "/mfl-logos/94ace8f8421c43da.jpg"
+  },
+  {
+   "id": "0010",
+   "name": "Orange Crush",
+   "division": "00",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0010.gif",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0010.gif",
+   "logo": "/mfl-logos/e59b25ba9bc863c4.gif",
+   "icon": "/mfl-logos/8e93a7b42680d402.gif"
+  },
+  {
+   "id": "0011",
+   "name": "Hooligans",
+   "division": "00",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0011.jpg",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0011.jpg",
+   "logo": "/mfl-logos/2e3e04dccc603fba.jpg",
+   "icon": "/mfl-logos/c27b27dc0c5454f7.jpg"
+  },
+  {
+   "id": "0012",
+   "name": "Hawgs",
+   "division": "01",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0012.jpg",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0012.jpg",
+   "logo": "/mfl-logos/8b274ea2dd58dd93.jpg",
+   "icon": "/mfl-logos/8b6a41e48ec8ea3c.jpg"
+  },
+  {
+   "id": "0013",
+   "name": "HC Hackers",
+   "division": "01",
+   "logoUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_logo0013.jpg",
+   "iconUrl": "http://www43.myfantasyleague.com/fflnetdynamic2005/33329_franchise_icon0013.jpg",
+   "logo": "/mfl-logos/43c91e7fdaca79e3.jpg",
+   "icon": "/mfl-logos/e9835da03cc79e7b.jpg"
+  }
+ ]
+}

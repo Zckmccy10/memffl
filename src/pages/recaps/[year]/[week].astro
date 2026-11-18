@@ -1,0 +1,92 @@
+---
+import Base from "../../../layouts/Base.astro";
+import MatchTicket from "../../../components/MatchTicket.astro";
+import TeamLink from "../../../components/TeamLink.astro";
+import { getData, weeklyAwards, divisionStandings, recStr, fmt } from "../../../lib/data.js";
+
+export function getStaticPaths() {
+  const { seasons } = getData();
+  return seasons.flatMap((s) => s.weeks.map((w) => ({ params: { year: String(s.year), week: String(w) } })));
+}
+
+const year = Number(Astro.params.year), week = Number(Astro.params.week);
+const { games, scores, seasons, seasonByYear, recaps } = getData();
+const season = seasonByYear[year];
+const weekGames = games.filter((g) => g.year === year && g.week === week);
+// Weeks with no head-to-head schedule on MFL: just a scoreboard.
+const soloScores = weekGames.length ? [] : scores.filter((s) => s.year === year && s.week === week).sort((a, b) => b.score - a.score);
+const order = { Championship: 0, "3rd Place": 1, "Toilet Bowl": 2 };
+weekGames.sort((a, b) => (order[a.label] ?? 5) - (order[b.label] ?? 5) || a.order - b.order);
+const recap = recaps[`${year}:${week}`];
+const awards = weekGames.length ? weeklyAwards(weekGames) : soloScores.length ? [
+  { key: "Highest Score", text: `${soloScores[0].team.name}, ${fmt(soloScores[0].score)}` },
+  { key: "Lowest Score", text: `${soloScores.at(-1).team.name}, ${fmt(soloScores.at(-1).score)}` },
+] : [];
+const top = Math.max(...weekGames.flatMap((g) => [g.a.score, g.b.score]));
+const idx = season.weeks.indexOf(week);
+const prev = season.weeks[idx - 1], next = season.weeks[idx + 1];
+const playoff = week > season.lastRegularSeasonWeek;
+const standings = divisionStandings(year, Math.min(week, season.lastRegularSeasonWeek));
+const seasonOpts = [...seasons].reverse().filter((s) => s.weeks.length);
+const title = recap?.title ?? `${year} Week ${week}`;
+---
+<Base title={`${year} Week ${week}`} active="Recaps" description={recap?.title ?? `Scores and awards from ${year} week ${week}.`}>
+  <section class="sect">
+    <div class="sect-h">
+      <div class="pills">
+        <label class="pill"><span class="sr" hidden>Season</span>
+          <select aria-label="Season" onchange="location.href='/recaps/'+this.value+'/'">
+            {seasonOpts.map((s) => <option value={s.year} selected={s.year === year}>{s.year}</option>)}
+          </select>
+        </label>
+        <span class="pill">
+          {prev ? <a href={`/recaps/${year}/${prev}/`} aria-label="Previous week">◂</a> : <span class="off" aria-hidden="true">◂</span>}
+          <span class="on">Week {week}</span>
+          {next ? <a href={`/recaps/${year}/${next}/`} aria-label="Next week">▸</a> : <span class="off" aria-hidden="true">▸</span>}
+        </span>
+      </div>
+      {playoff && <span class="hand" style="font-size:21px">playoffs!</span>}
+    </div>
+
+    <div class="recapgrid">
+      <div class="sect" style="min-width:0">
+        <h1 class="recap-title">{recap ? <mark>{title}</mark> : title}</h1>
+        {recap
+          ? <div class="prose" set:html={recap.html} />
+          : <p class="empty">No recap written for this week yet. Scores and awards below come straight from MyFantasyLeague. Add a recap from the <a href="/admin/">admin page</a>.</p>}
+        <div class="tix">
+          {weekGames.map((g) => <MatchTicket game={g} circle={top} />)}
+        </div>
+        {soloScores.length > 0 && (
+          <div class="sect">
+            <span class="hand" style="font-size:19px">MFL has no head-to-head schedule for {year}, so here's the scoreboard</span>
+            <div class="board">
+              {soloScores.map((s, i) => <div class="drow"><span class="mk" style="font-size:22px">{i + 1}</span><TeamLink team={s.team} year={year} size={24} /><span class="num">{fmt(s.score)}</span></div>)}
+            </div>
+          </div>
+        )}
+      </div>
+      {awards.length > 0 && (
+        <aside class="sticky">
+          <h3>Commish's awards, wk {week}</h3>
+          <ol>{awards.map((a) => <li>{a.key}: <span>{a.text}</span></li>)}</ol>
+          <div class="sig">— the Commish</div>
+        </aside>
+      )}
+    </div>
+  </section>
+
+  {weekGames.length > 0 && <section class="sect">
+    <div class="sect-h"><h2>{year} Standings</h2><span class="label">Regular season · through week {Math.min(week, season.lastRegularSeasonWeek)}</span></div>
+    <div class="divs">
+      {Object.entries(standings).map(([div, rows]) => (
+        <div>
+          <h3>{div}</h3>
+          <div class="board">
+            {rows.map(({ team, r }) => <div class="drow"><TeamLink team={team} year={year} size={24} /><span></span><span class="num">{recStr(r)}</span></div>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>}
+</Base>

@@ -1,0 +1,65 @@
+---
+import Base from "../../layouts/Base.astro";
+import Badge from "../../components/Badge.astro";
+import TrophyCase from "../../components/TrophyCase.astro";
+import { getData, record, finishesFor, fmt, pctStr, recStr } from "../../lib/data.js";
+export function getStaticPaths() {
+  return getData().owners.map((o) => ({ params: { slug: o.slug } }));
+}
+const { owners, games, ownerOf, lastSeason } = getData();
+const o = owners.find((x) => x.slug === Astro.params.slug);
+const mineIn = (s, year) => ownerOf(year, s.fid) === o;
+const myGames = games.filter((g) => mineIn(g.a, g.year) || mineIn(g.b, g.year));
+const isMine = (g) => (s) => mineIn(s, g.year);
+// record() needs a side predicate; build per game.
+function rec(list) {
+  let acc = { w: 0, l: 0, t: 0, pf: 0, high: null, low: null };
+  const r = record(list.map((g) => ({ ...g, a: { ...g.a, mine: mineIn(g.a, g.year) }, b: { ...g.b, mine: mineIn(g.b, g.year) } })), (s) => s.mine);
+  return r;
+}
+const reg = rec(myGames.filter((g) => !g.playoff));
+const po = rec(myGames.filter((g) => g.playoff));
+const all = rec(myGames);
+const trophies = finishesFor((team, year) => ownerOf(year, team.franchiseId) === o);
+const passes = o.teams.map((t) => {
+  const yrs = t.years.filter((y) => ownerOf(y, t.franchiseId) === o);
+  const r = rec(myGames.filter((g) => yrs.includes(g.year) && (g.a.team === t || g.b.team === t)));
+  return { t, yrs, r, current: yrs.includes(lastSeason.year) };
+});
+const best = passes.length > 1 ? passes.reduce((a, b) => (b.r.pct > a.r.pct ? b : a)) : null;
+---
+<Base title={o.name} active="Owners" description={`${o.name}'s record across every team they've run.`}>
+  <section class="prof">
+    <div class="polaroid"><div class="ph">{o.photo ? <img src={o.photo} alt={o.name} /> : o.name[0]}</div><div class="cap">{o.name}, '{String(o.since).slice(-2)}</div></div>
+    <div class="sect" style="min-width:0;gap:10px">
+      <h1 style="font-size:clamp(38px,6vw,54px)">{o.name}</h1>
+      <div style="font-weight:700" class="muted">Owner since {o.since} · {o.teams.length} team name{o.teams.length === 1 ? "" : "s"}{trophies.titles.length ? ` · ${trophies.titles.length}× champion` : trophies.runnerUp.length ? ` · ${trophies.runnerUp.length}× runner-up` : ""}</div>
+      <div class="cards">
+        <div class="ic"><div class="k">Record</div><div class="v num">{recStr(all)}</div><div class="s">all games{po.gp ? ` · ${recStr(reg)} regular` : ""}</div></div>
+        <div class="ic"><div class="k">Win %</div><div class="v num">{pctStr(all.pct)}</div><div class="s">{po.gp ? `${recStr(po)} in playoffs` : "no playoff games"}</div></div>
+        <div class="ic"><div class="k">Best week</div><div class="v num">{reg.high ? <span class="circ">{fmt(Math.max(reg.high.score, po.high?.score ?? 0))}</span> : "—"}</div><div class="s">career high</div></div>
+        <div class="ic"><div class="k">Worst week</div><div class="v num">{reg.low ? fmt(Math.min(reg.low.score, po.low?.score ?? Infinity)) : "—"}</div><div class="s">career low</div></div>
+      </div>
+      {o.note && <span class="hand" style="font-size:20px">{o.note}</span>}
+    </div>
+  </section>
+
+  <section class="sect">
+    <div class="sect-h"><h2>Trophy Case</h2><span class="hand" style="font-size:19px">faded = still up for grabs</span></div>
+    <TrophyCase finishes={trophies} />
+  </section>
+
+  <section class="sect">
+    <div class="sect-h"><h2>Season Passes</h2><span class="hand" style="font-size:19px">one ticket per team name</span></div>
+    {passes.map(({ t, yrs, r, current }) => (
+      <a class="pass" href={`/teams/${t.slug}/`} style={`--p:${t.colors[0]}`}>
+        <span class="lbl">{current ? "Current" : "Retired name"}</span>
+        <div class="m">
+          <div class="t"><Badge team={t} size={40} /><div><small>{yrs[0]} – {current ? "present" : yrs.at(-1)}</small><b>{t.name}</b></div></div>
+          {best === passes.find((x) => x.t === t) && <span class="hand" style="font-size:19px">best run so far!</span>}
+        </div>
+        <div class="s"><b class="num">{recStr(r)}</b><span>{pctStr(r.pct)}</span></div>
+      </a>
+    ))}
+  </section>
+</Base>

@@ -1,0 +1,42 @@
+# Team colors, logos and notes. Teams are matched by name, so a team that changed
+# its name gets its own entry. Teams not listed here get default colors and the
+# logo from MyFantasyLeague.
+#
+#   colors.primary   -> jersey, helmet and socks on the team page player
+#   colors.secondary -> pants, numbers and trim
+#   logo             -> optional; replaces the MyFantasyLeague logo
+#   aliases          -> other spellings that should count as the same team
+
+teams:
+  - name: Black Mamba
+    colors: { primary: "#1c1c1c", secondary: "#e3b53b" }
+    jersey: "20"
+  - name: Samurai Champloo
+    colors: { primary: "#9e1b32", secondary: "#2b2b2b" }
+  - name: Purple Cobras
+    colors: { primary: "#6a2fb0", secondary: "#f2c230" }
+  - name: Beer Gut Mutts
+    colors: { primary: "#d99a26", secondary: "#24365e" }
+  - name: Hackers
+    colors: { primary: "#1f8a9e", secondary: "#0f2f45" }
+  - name: Vipers
+    colors: { primary: "#c0272d", secondary: "#1b1b1b" }
+  - name: Nightmares
+    colors: { primary: "#23415c", secondary: "#4fc3c9" }
+  - name: Jokers Wild
+    aliases: [Joker's Wild]
+    colors: { primary: "#2e9e4f", secondary: "#8e3fc0" }
+  - name: Bell Ringer
+    colors: { primary: "#c9a24a", secondary: "#1d2f55" }
+  - name: Red Knights
+    colors: { primary: "#b3202a", secondary: "#c7ccd4" }
+  - name: Lightning Strike
+    colors: { primary: "#2f57c4", secondary: "#ffd23f" }
+  - name: Predators
+    colors: { primary: "#4f6b4a", secondary: "#c9a227" }
+  - name: Scranton Stranglers
+    colors: { primary: "#6b3fa0", secondary: "#7ed957" }
+  - name: Mud Dawgs
+    colors: { primary: "#6b4a2b", secondary: "#e8d9b5" }
+  - name: Frank-N-Furters
+    colors: { primary: "#c0392b", secondary: "#f4c430" }

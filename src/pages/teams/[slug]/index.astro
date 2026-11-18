@@ -1,0 +1,12 @@
+---
+import Base from "../../../layouts/Base.astro";
+import TeamView from "../../../components/TeamView.astro";
+import { getData } from "../../../lib/data.js";
+export function getStaticPaths() {
+  return getData().teamList.map((t) => ({ params: { slug: t.slug } }));
+}
+const t = getData().teams[Astro.params.slug];
+---
+<Base title={t.name} active="Teams" description={`${t.name}: all-time record, seasons and trophies.`}>
+  <TeamView team={t} year={null} />
+</Base>

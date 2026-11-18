@@ -1,0 +1,109 @@
+# Decap CMS: the editor at memffl.com/admin. Saving commits to the GitHub repo,
+# and the site rebuilds itself a minute or two later.
+backend:
+  name: github
+  repo: Zckmccy10/memffl
+  branch: main
+  base_url: https://OAUTH-HELPER-URL # sign-in helper; see README "Admin sign-in"
+
+# `npm run cms` + `npm run dev` lets you edit locally without signing in.
+local_backend: true
+
+site_url: https://memffl.com
+display_url: https://memffl.com
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: recaps
+    label: Weekly Recaps
+    label_singular: Recap
+    folder: content/recaps
+    create: true
+    slug: "{{season}}-week-{{week}}"
+    summary: "{{season}} · Week {{week}}: {{title}}"
+    sortable_fields: [season, week, title]
+    fields:
+      - { name: season, label: Season, widget: number, value_type: int }
+      - { name: week, label: Week, widget: number, value_type: int, min: 1, max: 18 }
+      - { name: title, label: Headline, widget: string }
+      - { name: featured, label: "Featured team (shown on the home page ticket)", widget: string, required: false, hint: "Team name, e.g. Purple Cobras. Leave blank to feature the top score." }
+      - { name: ticketNote, label: "Handwritten note on the ticket", widget: string, required: false }
+      - { name: scrawl, label: "Scribble on the ticket's edge", widget: string, required: false, hint: "A few words, e.g. what a game!!" }
+      - { name: body, label: Recap, widget: markdown }
+
+  - name: settings
+    label: League Settings
+    files:
+      - name: site
+        label: League info
+        file: content/site.yaml
+        fields:
+          - { name: name, label: League name, widget: string }
+          - { name: shortName, label: Short name, widget: string }
+          - { name: founded, label: Year founded, widget: number, value_type: int }
+          - { name: tagline, label: Tagline, widget: string }
+          - { name: mflLeagueId, label: MyFantasyLeague league ID, widget: number, value_type: int }
+          - { name: about, label: About the league, widget: text }
+
+      - name: teams
+        label: Team colors, logos and notes
+        file: content/teams.yaml
+        fields:
+          - name: teams
+            label: Teams
+            label_singular: Team
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: "Team name (as on MyFantasyLeague)", widget: string }
+              - name: colors
+                label: Colors
+                widget: object
+                fields:
+                  - { name: primary, label: Primary (jersey), widget: color }
+                  - { name: secondary, label: Secondary (pants and trim), widget: color }
+              - { name: logo, label: "Logo (leave empty to use MyFantasyLeague's)", widget: image, required: false }
+              - { name: jersey, label: Jersey number, widget: string, required: false }
+              - { name: aliases, label: "Other spellings of this name", widget: list, required: false, field: { name: name, label: Name, widget: string } }
+              - { name: standingsNote, label: Handwritten note in the standings, widget: string, required: false }
+              - { name: note, label: Handwritten note on the team page, widget: string, required: false }
+
+      - name: owners
+        label: Owners
+        file: content/owners.yaml
+        fields:
+          - name: owners
+            label: Owners
+            label_singular: Owner
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: photo, label: Photo, widget: image, required: false }
+              - { name: note, label: Handwritten note, widget: string, required: false }
+              - name: franchises
+                label: Team slots run
+                label_singular: Team slot
+                widget: list
+                summary: "Slot {{fields.id}}: {{fields.from}}–{{fields.to}}"
+                fields:
+                  - { name: id, label: "MFL team slot (0001-0013)", widget: string }
+                  - { name: from, label: First season, widget: number, value_type: int }
+                  - { name: to, label: "Last season (blank if current)", widget: number, value_type: int, required: false }
+
+      - name: seasons
+        label: Season finishes
+        file: content/seasons.yaml
+        fields:
+          - name: seasons
+            label: Seasons
+            label_singular: Season
+            widget: list
+            summary: "{{fields.year}}: {{fields.champion}}"
+            fields:
+              - { name: year, label: Season, widget: number, value_type: int }
+              - { name: champion, label: Champion, widget: string, required: false }
+              - { name: runnerUp, label: Runner-up, widget: string, required: false }
+              - { name: third, label: 3rd place, widget: string, required: false }
+              - { name: toiletBowl, label: Toilet Bowl, widget: string, required: false }

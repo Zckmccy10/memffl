@@ -1,0 +1,20 @@
+---
+import TeamLink from "./TeamLink.astro";
+import { fmt } from "../lib/data.js";
+// A matchup drawn as a ticket stub. `circle` circles the given score.
+const { game: g, circle } = Astro.props;
+const aWin = g.winner === g.a, bWin = g.winner === g.b;
+const score = (side) => (circle && circle === side.score && side === g.winner ? `<span class="circ">${fmt(side.score)}</span>` : fmt(side.score));
+---
+<div class="tk">
+  {g.label && g.label !== "Playoffs" && <span class:list={["lbl", { champ: g.label === "Championship" }]}>{g.label}</span>}
+  {g.label === "Playoffs" && <span class="lbl">Playoffs</span>}
+  <div class="tm">
+    <div class:list={["ln", { l: !aWin && g.winner }]}><TeamLink team={g.a.team} year={g.year} /></div>
+    <div class:list={["ln", { l: !bWin && g.winner }]}><TeamLink team={g.b.team} year={g.year} /></div>
+  </div>
+  <div class="sc num">
+    <span class:list={{ l: !aWin && g.winner }} set:html={score(g.a)} />
+    <span class:list={{ l: !bWin && g.winner }} set:html={score(g.b)} />
+  </div>
+</div>

@@ -1,0 +1,13 @@
+# Who ran which team slot, and when. MFL keeps a team's slot number (0001-0013)
+# even when the team changes its name, so list the slot number and the years.
+# Leave "to" out if the owner still runs that slot.
+#
+# Slot numbers this season: 0001 Jokers Wild, 0002 Lightning Strike, 0003 Beer Gut Mutts,
+# 0004 Red Knights, 0005 Predators, 0006 Vipers, 0007 Hackers, 0008 Purple Cobras,
+# 0009 Nightmares, 0010 Bell Ringer, 0011 Mud Dawgs, 0012 Black Mamba, 0013 Frank-N-Furters
+
+owners:
+  - name: Steven
+    franchises:
+      - id: "0012"
+        from: 2018

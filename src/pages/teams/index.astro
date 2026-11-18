@@ -1,0 +1,27 @@
+---
+import Base from "../../layouts/Base.astro";
+import Badge from "../../components/Badge.astro";
+import { getData, record, gamesFor, recStr } from "../../lib/data.js";
+const { teamList, games } = getData();
+const withRec = (list) => list.map((t) => ({ t, r: record(gamesFor(games, (s) => s.team === t), (s) => s.team === t) }));
+const active = withRec(teamList.filter((t) => t.active)).sort((a, b) => a.t.name.localeCompare(b.t.name));
+const retired = withRec(teamList.filter((t) => !t.active)).sort((a, b) => b.t.last - a.t.last || a.t.name.localeCompare(b.t.name));
+---
+<Base title="Teams" active="Teams">
+  <section class="sect">
+    <div class="sect-h"><h1 style="font-size:clamp(34px,5vw,48px)">Active Teams</h1><span class="hand" style="font-size:20px">this season's lineup</span></div>
+    <div class="grid-cards">
+      {active.map(({ t, r }) => (
+        <a class="tcell" href={`/teams/${t.slug}/`} style={`--p:${t.colors[0]}`}><Badge team={t} size={46} /><span><b>{t.name}</b><small>Since {t.first} · {recStr(r)}{t.owner ? ` · ${t.owner.name}` : ""}</small></span></a>
+      ))}
+    </div>
+  </section>
+  <section class="sect">
+    <div class="sect-h"><h2>Retired Teams</h2><span class="hand" style="font-size:20px">gone but not forgotten</span></div>
+    <div class="grid-cards">
+      {retired.map(({ t, r }) => (
+        <a class="tcell" href={`/teams/${t.slug}/`} style={`--p:${t.colors[0]}`}><Badge team={t} size={40} /><span><b>{t.name}</b><small>{t.first === t.last ? t.first : `${t.first}–${t.last}`} · {recStr(r)}</small></span></a>
+      ))}
+    </div>
+  </section>
+</Base>

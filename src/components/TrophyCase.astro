@@ -1,0 +1,26 @@
+---
+import { cupSVG, toiletSVG } from "../lib/art.js";
+// finishes: { titles: [years], runnerUp: [years], third: [years], toilet: [years] }
+const { finishes, note } = Astro.props;
+const slots = [
+  ["Titles", finishes.titles, (g) => cupSVG("gold", g)],
+  ["Runner-up", finishes.runnerUp, (g) => cupSVG("silver", g)],
+  ["3rd place", finishes.third, (g) => cupSVG("bronze", g)],
+  ["Toilet Bowl", finishes.toilet, (g) => toiletSVG(g)],
+];
+const autoNote = note ?? (finishes.titles.length ? null : "saving a spot for a title →");
+---
+<div class="case">
+  {autoNote && <span class="hand note">{autoNote}</span>}
+  <div class="tro">
+    {slots.map(([, years, svg]) => (
+      <div class="slot" set:html={years.length ? years.slice(0, 5).map(() => svg(false)).join("") : svg(true)} />
+    ))}
+  </div>
+  <div class="plank"></div>
+  <div class="plaques">
+    {slots.map(([label, years]) => (
+      <span class="plaq">{label}<b>×{years.length}</b>{years.length > 0 && <em>{years.join(", ")}</em>}</span>
+    ))}
+  </div>
+</div>

@@ -1,0 +1,41 @@
+---
+import "../styles/clubhouse.css";
+import { getData } from "../lib/data.js";
+const { title, description, active } = Astro.props;
+const { site, updated } = getData();
+const nav = [
+  ["/", "Home"], ["/teams/", "Teams"], ["/owners/", "Owners"], ["/recaps/", "Recaps"], ["/records/", "Record Book"],
+];
+const pageTitle = title ? `${title} · ${site.shortName}` : `${site.shortName} · ${site.name}`;
+const updatedStr = new Date(updated).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description ?? `${site.name}, est. ${site.founded}.`} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&family=Permanent+Marker&display=swap" />
+  </head>
+  <body>
+    <header class="wrap topnav">
+      <a class="wm" href="/">{site.shortName}<span>.</span></a>
+      <nav aria-label="Main">
+        <ul>
+          {nav.map(([href, label]) => <li><a href={href} aria-current={active === label ? "page" : undefined}>{label}</a></li>)}
+        </ul>
+      </nav>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="wrap site">
+      <span>{site.name} · Est. {site.founded}</span>
+      <span>Scores from MyFantasyLeague · updated {updatedStr}</span>
+    </footer>
+  </body>
+</html>

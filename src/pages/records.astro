@@ -1,0 +1,61 @@
+---
+import Base from "../layouts/Base.astro";
+import TeamLink from "../components/TeamLink.astro";
+import { getData, record, gamesFor, fmt, pctStr, recStr } from "../lib/data.js";
+const { games, scores, seasons, finishes, teamList } = getData();
+// Every team-week score, with the opponent when MFL has one.
+const sides = scores.map((s) => ({ g: s, me: s, them: s.game ? (s.game.a.fid === s.fid ? s.game.b : s.game.a) : null }));
+const topScores = [...sides].sort((a, b) => b.me.score - a.me.score).slice(0, 10);
+const lowScores = [...sides].filter((s) => s.me.score > 0).sort((a, b) => a.me.score - b.me.score).slice(0, 10);
+const blowouts = games.filter((g) => g.winner).sort((a, b) => b.margin - a.margin).slice(0, 10);
+const seasonsList = seasons.flatMap((s) => teamList.filter((t) => t.years.includes(s.year)).map((t) => ({ y: s.year, t, r: record(gamesFor(games.filter((g) => g.year === s.year && !g.playoff), (x) => x.team === t), (x) => x.team === t) }))).filter((x) => x.r.gp >= 8);
+const bestSeasons = [...seasonsList].sort((a, b) => b.r.pf / b.r.gp - a.r.pf / a.r.gp).slice(0, 10);
+const champs = [...seasons].reverse().map((s) => ({ y: s.year, f: finishes[s.year] }));
+---
+<Base title="Record Book" active="Record Book">
+  <section class="sect">
+    <div class="sect-h"><h1 style="font-size:clamp(34px,5vw,48px)">Record Book</h1><span class="hand" style="font-size:20px">every season since {seasons[0].year}</span></div>
+  </section>
+
+  <section class="sect">
+    <h2>Champions</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Season</th><th>Champion</th><th>Runner-up</th><th>3rd place</th><th>Toilet Bowl</th></tr></thead>
+      <tbody>
+        {champs.map(({ y, f }) => (
+          <tr><td class="num"><a href={`/recaps/${y}/`}>{y}</a></td>
+            {[f.champion, f.runnerUp, f.third, f.toiletBowl].map((t) => <td>{t ? <TeamLink team={t} year={y} size={22} /> : <span class="muted">—</span>}</td>)}</tr>
+        ))}
+      </tbody>
+    </table></div>
+    <p class="muted" style="margin:0;font-size:13px">MyFantasyLeague doesn't share playoff brackets, so finishes come from <code>content/seasons.yaml</code> (or the admin page). Blank seasons haven't been filled in yet.</p>
+  </section>
+
+  <section class="sect">
+    <h2>Highest Single-Week Scores</h2>
+    <div class="tbl"><table><thead><tr><th>#</th><th>Team</th><th class="n">Score</th><th>Opponent</th><th>When</th></tr></thead><tbody>
+      {topScores.map((s, i) => <tr><td>{i + 1}</td><td><TeamLink team={s.me.team} year={s.g.year} size={22} /></td><td class="n num"><b>{fmt(s.me.score)}</b></td><td>{s.them ? `${s.them.team.name} (${fmt(s.them.score)})` : <span class="muted">—</span>}</td><td><a href={`/recaps/${s.g.year}/${s.g.week}/`}>{s.g.year} wk {s.g.week}</a></td></tr>)}
+    </tbody></table></div>
+  </section>
+
+  <section class="sect">
+    <h2>Biggest Blowouts</h2>
+    <div class="tbl"><table><thead><tr><th>#</th><th>Winner</th><th class="n">Margin</th><th>Score</th><th>When</th></tr></thead><tbody>
+      {blowouts.map((g, i) => <tr><td>{i + 1}</td><td><TeamLink team={g.winner.team} year={g.year} size={22} /></td><td class="n num"><b>{fmt(g.margin)}</b></td><td class="num">{fmt(g.winner.score)}–{fmt(g.loser.score)} over {g.loser.team.name}</td><td><a href={`/recaps/${g.year}/${g.week}/`}>{g.year} wk {g.week}</a></td></tr>)}
+    </tbody></table></div>
+  </section>
+
+  <section class="sect">
+    <h2>Best Scoring Seasons</h2>
+    <div class="tbl"><table><thead><tr><th>#</th><th>Team</th><th>Season</th><th class="n">Pts/game</th><th class="n">Record</th></tr></thead><tbody>
+      {bestSeasons.map((x, i) => <tr><td>{i + 1}</td><td><TeamLink team={x.t} year={x.y} size={22} /></td><td>{x.y}</td><td class="n num"><b>{fmt(x.r.ppg)}</b></td><td class="n num">{recStr(x.r)}</td></tr>)}
+    </tbody></table></div>
+  </section>
+
+  <section class="sect">
+    <h2>Lowest Single-Week Scores</h2>
+    <div class="tbl"><table><thead><tr><th>#</th><th>Team</th><th class="n">Score</th><th>Opponent</th><th>When</th></tr></thead><tbody>
+      {lowScores.map((s, i) => <tr><td>{i + 1}</td><td><TeamLink team={s.me.team} year={s.g.year} size={22} /></td><td class="n num"><b>{fmt(s.me.score)}</b></td><td>{s.them ? `${s.them.team.name} (${fmt(s.them.score)})` : <span class="muted">—</span>}</td><td><a href={`/recaps/${s.g.year}/${s.g.week}/`}>{s.g.year} wk {s.g.week}</a></td></tr>)}
+    </tbody></table></div>
+  </section>
+</Base>

@@ -1,0 +1,121 @@
+{
+ "updated": "2026-11-18T05:12:12.467Z",
+ "currentYear": 2026,
+ "seasons": [
+  {
+   "year": 2004,
+   "leagueId": "63823",
+   "current": false
+  },
+  {
+   "year": 2005,
+   "leagueId": "33329",
+   "current": false
+  },
+  {
+   "year": 2006,
+   "leagueId": "12123",
+   "current": false
+  },
+  {
+   "year": 2007,
+   "leagueId": "16354",
+   "current": false
+  },
+  {
+   "year": 2008,
+   "leagueId": "10093",
+   "current": false
+  },
+  {
+   "year": 2009,
+   "leagueId": "40350",
+   "current": false
+  },
+  {
+   "year": 2010,
+   "leagueId": "16223",
+   "current": false
+  },
+  {
+   "year": 2011,
+   "leagueId": "33732",
+   "current": false
+  },
+  {
+   "year": 2012,
+   "leagueId": "48889",
+   "current": false
+  },
+  {
+   "year": 2013,
+   "leagueId": "40812",
+   "current": false
+  },
+  {
+   "year": 2014,
+   "leagueId": "45104",
+   "current": false
+  },
+  {
+   "year": 2015,
+   "leagueId": "48582",
+   "current": false
+  },
+  {
+   "year": 2016,
+   "leagueId": "30555",
+   "current": false
+  },
+  {
+   "year": 2017,
+   "leagueId": "30555",
+   "current": false
+  },
+  {
+   "year": 2018,
+   "leagueId": "30555",
+   "current": false
+  },
+  {
+   "year": 2019,
+   "leagueId": "30555",
+   "current": false
+  },
+  {
+   "year": 2020,
+   "leagueId": "30555",
+   "current": false
+  },
+  {
+   "year": 2021,
+   "leagueId": "30555",
+   "current": false
+  },
+  {
+   "year": 2022,
+   "leagueId": "30555",
+   "current": false
+  },
+  {
+   "year": 2023,
+   "leagueId": "30555",
+   "current": false
+  },
+  {
+   "year": 2024,
+   "leagueId": "30555",
+   "current": false
+  },
+  {
+   "year": 2025,
+   "leagueId": "30555",
+   "current": false
+  },
+  {
+   "year": 2026,
+   "leagueId": "30555",
+   "current": true
+  }
+ ]
+}

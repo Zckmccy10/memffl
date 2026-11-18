@@ -1,0 +1,59 @@
+# Pulls new scores from MyFantasyLeague, commits them, and publishes the site to
+# GitHub Pages. Runs on every push (including saves from /admin) and on a schedule.
+name: Update and deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Tuesdays and Fridays at 10:00 UTC (early morning in Memphis), after games finish.
+    - cron: "0 10 * * 2,5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Pull scores from MyFantasyLeague
+        if: github.event_name != 'push'
+        run: npm run sync
+
+      - name: Save new scores to the repo
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "mffl-bot"
+          git config user.email "mffl-bot@users.noreply.github.com"
+          git add data public/mfl-logos
+          git diff --cached --quiet || git commit -m "Update scores from MyFantasyLeague"
+          git push
+
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

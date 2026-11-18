@@ -1,0 +1,8 @@
+---
+// Team logo, or a shield in the team's colors when there's no logo.
+const { team, size = 34 } = Astro.props;
+const src = size > 48 ? team.logo ?? team.icon : team.icon ?? team.logo;
+---
+{src
+  ? <span class="badge" style={`--s:${size}px`}><img src={src} alt="" loading="lazy" width={size} height={size} /></span>
+  : <span class="badge shield" style={`--s:${size}px;--p:${team.colors[0]};--q:${team.colors[1]}`} aria-hidden="true">{team.abbr}</span>}

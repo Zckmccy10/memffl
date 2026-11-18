@@ -1,0 +1,6 @@
+---
+import Badge from "./Badge.astro";
+const { team, size = 26, year } = Astro.props;
+const href = year ? `/teams/${team.slug}/${year}/` : `/teams/${team.slug}/`;
+---
+<a class="tlink" href={href}><Badge team={team} size={size} /><span class="tn">{team.name}</span></a>

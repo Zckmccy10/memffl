@@ -1,0 +1,82 @@
+---
+import Base from "../layouts/Base.astro";
+import Badge from "../components/Badge.astro";
+import { getData, record, gamesFor, latestWeek, fmt, pctStr, recStr } from "../lib/data.js";
+import { doodleSVG } from "../lib/art.js";
+
+const { site, games, teamList, recaps, lastSeason } = getData();
+const lw = latestWeek();
+
+// Featured game for the ticket: the recap's pick, else the title game, else the week's top score.
+const weekGames = lw ? games.filter((g) => g.year === lw.year && g.week === lw.week) : [];
+const recap = lw ? recaps[`${lw.year}:${lw.week}`] : null;
+const featured =
+  (recap?.featured && weekGames.find((g) => [g.a.team.name, g.b.team.name].includes(recap.featured))) ||
+  weekGames.find((g) => g.label === "Championship") ||
+  weekGames.reduce((best, g) => (!best || Math.max(g.a.score, g.b.score) > Math.max(best.a.score, best.b.score) ? g : best), null);
+const left = featured ? (featured.winner ?? featured.a) : null;
+const right = featured ? (left === featured.a ? featured.b : featured.a) : null;
+const weekHigh = Math.max(...weekGames.flatMap((g) => [g.a.score, g.b.score]));
+
+// All-time standings, active teams, every head-to-head game (playoffs included,
+// matching how the league has always counted it).
+const rows = teamList
+  .filter((t) => t.active)
+  .map((t) => ({ t, r: record(gamesFor(games, (s) => s.team === t), (s) => s.team === t) }))
+  .filter((x) => x.r.gp > 0)
+  // Teams with less than a full season of games sit below the established ones.
+  .sort((a, b) => (b.r.gp >= 14) - (a.r.gp >= 14) || b.r.pct - a.r.pct || b.r.ppg - a.r.ppg);
+const rookie = (r) => r.gp < 14;
+const markColors = ["#d3262f", "#2f57c4", "#17181c"];
+const yearsRunning = new Date().getFullYear() - site.founded;
+---
+<Base active="Home">
+  <section class="hero">
+    <div class="mast">
+      <Fragment set:html={doodleSVG} />
+      <h1><span class="r">{site.shortName.slice(0, 2)}</span><span class="b">{site.shortName.slice(2)}</span></h1>
+      <div class="sub">The {site.name}. <mark>{site.tagline}</mark></div>
+      <div class="since"><span>Since<b>'{String(site.founded).slice(-2)}</b>{yearsRunning} yrs</span></div>
+    </div>
+    {featured && (
+      <div class="clipwrap">
+        <span class="clip" aria-hidden="true"></span>
+        <div class="ticket">
+          <div class="main">
+            <div class="adm"><b>Admit one</b><span>Last week</span><span>{lw.year} · Wk {lw.week}{featured.label && featured.label !== "Playoffs" ? ` · ${featured.label}` : ""}</span></div>
+            <div class="vs">
+              <a class="tm" href={`/teams/${left.team.slug}/${lw.year}/`}><Badge team={left.team} size={44} /><div><b class="num" set:html={left.score === weekHigh ? `<span class="circ">${fmt(left.score)}</span>` : fmt(left.score)} /><small>{left.team.name}</small></div></a>
+              <span class="hand red" style="font-size:24px">vs</span>
+              <a class="tm r l" href={`/teams/${right.team.slug}/${lw.year}/`}><div><b class="num">{fmt(right.score)}</b><small>{right.team.name}</small></div><Badge team={right.team} size={44} /></a>
+            </div>
+            {recap?.ticketNote ? <span class="hand" style="font-size:19px">{recap.ticketNote}</span> : <a class="hand" style="font-size:19px" href={`/recaps/${lw.year}/${lw.week}/`}>read the week {lw.week} recap →</a>}
+          </div>
+          <div class="stub"><span>Season</span><span class="big">'{String(lw.year).slice(-2)}</span><span>Wk {lw.week}</span><span class="bc"></span></div>
+          {recap?.scrawl && <span class="hand scrawl">{recap.scrawl}</span>}
+        </div>
+      </div>
+    )}
+  </section>
+
+  <p class="about muted">{site.about}</p>
+
+  <section class="sect">
+    <div class="sect-h"><h2>All-Time Standings</h2><span class="label">Active teams · all games · by win %</span></div>
+    <div class="board">
+      {rows.map(({ t, r }, i) => (
+        <div class="srow">
+          <span class:list={["mk", { c1: i === 0 }]} style={`color:${markColors[i % 3]}`}>{i + 1}</span>
+          <Badge team={t} size={32} />
+          <span class="nm">
+            <a class="tlink" href={`/teams/${t.slug}/`}><span class="tn">{t.name}</span></a>
+            {t.standingsNote ? <span class="hand" style="font-size:19px;margin-left:6px">← {t.standingsNote}</span>
+              : rookie(r) && <span class="hand" style="font-size:19px;margin-left:6px">← rookie season!</span>}
+            <small class="num">{fmt(r.ppg)} pts per game · since {t.first}</small>
+          </span>
+          <span class="pct num">{pctStr(r.pct)}</span>
+          <span class="rec num">{recStr(r)}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>
