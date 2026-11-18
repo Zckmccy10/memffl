@@ -1,13 +1,10 @@
-# Decap CMS: the editor at memffl.com/admin. Saving commits to the GitHub repo,
+# Sveltia CMS (Decap-compatible): the editor at memffl.com/admin. Saving commits to the GitHub repo,
 # and the site rebuilds itself a minute or two later.
 backend:
   name: github
   repo: Zckmccy10/memffl
   branch: main
-  base_url: https://OAUTH-HELPER-URL # sign-in helper; see README "Admin sign-in"
 
-# `npm run cms` + `npm run dev` lets you edit locally without signing in.
-local_backend: true
 
 site_url: https://memffl.com
 display_url: https://memffl.com

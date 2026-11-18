@@ -27,8 +27,9 @@ npm run sync     # pull scores from MFL (slow on purpose; MFL rate-limits)
 npm run dev      # site at http://localhost:4321
 ```
 
-To use the admin editor locally without signing in, run `npm run cms` in a
-second terminal and open http://localhost:4321/admin/.
+To edit locally, open http://localhost:4321/admin/index.html in Chrome or Edge and
+choose *Work with Local Repository*, then pick this folder. Changes are saved to
+the files here; commit and push them yourself.
 
 ## Going live
 
@@ -39,13 +40,17 @@ second terminal and open http://localhost:4321/admin/.
    `185.199.110.153`, `185.199.111.153`, and a `CNAME` for `www` to
    `<your-github-username>.github.io`. Then in Settings → Pages, set the custom
    domain to `memffl.com` and tick *Enforce HTTPS* once it's available.
-4. **Admin sign-in:** Decap needs a small sign-in helper to log in with GitHub
-   when the site is on GitHub Pages.
-   - Create a GitHub OAuth App (GitHub → Settings → Developer settings → OAuth Apps).
-   - Deploy a free sign-in helper, for example the `sveltia-cms-auth` Cloudflare
-     Worker, with that app's client ID and secret.
-   - In `public/admin/config.yml`, set `repo` to `your-username/memffl` and
-     `base_url` to the helper's URL.
+4. **Admin sign-in:** the editor is [Sveltia CMS](https://github.com/sveltia/sveltia-cms),
+   a Decap-compatible editor that signs in with a GitHub access token, so no
+   sign-in server is needed.
+   - On GitHub: Settings → Developer settings → Personal access tokens →
+     Fine-grained tokens → *Generate new token*.
+   - Repository access: *Only select repositories* → `memffl`.
+   - Permissions: *Contents* → Read and write.
+   - Pick an expiration (up to a year), generate, and copy the token.
+   - Open memffl.com/admin, choose *Sign In Using Access Token*, and paste it.
+     The browser remembers it, so you only redo this when the token expires.
+   - Anyone else who edits needs collaborator access to the repo and their own token.
 
 ## Common edits
 
