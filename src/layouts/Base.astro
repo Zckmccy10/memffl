@@ -23,7 +23,7 @@ const updatedStr = new Date(updated).toLocaleDateString("en-US", { month: "short
   </head>
   <body>
     <header class="wrap topnav">
-      <a class="wm" href="/">{site.shortName}<span>.</span></a>
+      <a class="wm" href="/">{site.shortName}</a>
       <nav aria-label="Main">
         <ul>
           {nav.map(([href, label]) => <li><a href={href} aria-current={active === label ? "page" : undefined}>{label}</a></li>)}

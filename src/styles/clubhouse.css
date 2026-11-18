@@ -17,8 +17,7 @@ main{padding-block:8px 60px;display:grid;gap:34px}
 
 /* nav */
 .topnav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-block:16px}
-.topnav .wm{font-family:var(--f-display);font-size:22px;text-decoration:none}
-.topnav .wm span{color:var(--red)}
+.topnav .wm{font-family:var(--f-marker);font-size:28px;line-height:1;color:var(--ink);text-decoration:none;-webkit-text-stroke:.6px currentColor}
 .topnav ul{display:flex;gap:4px 18px;flex-wrap:wrap;list-style:none;margin:0;padding:0;font-weight:700;font-size:14px}
 .topnav a{text-decoration:none}
 .topnav a:hover,.topnav a[aria-current="page"]{box-shadow:inset 0 -7px 0 var(--hi)}
@@ -58,34 +57,32 @@ mark{background:linear-gradient(transparent 58%,var(--hi) 58%);color:inherit;pad
 .hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:28px;align-items:center;padding-top:6px}
 .mast{position:relative;display:grid;gap:8px}
 .mast .doodle{position:absolute;right:0;bottom:-30px;width:190px;opacity:.35;pointer-events:none}
-.mast h1{font-size:clamp(68px,12vw,118px);line-height:.85;letter-spacing:-.03em}
-.mast h1 .r{color:var(--red)}.mast h1 .b{color:var(--blue)}
+.mast h1{font-family:var(--f-marker);font-weight:400;font-size:clamp(68px,12vw,118px);line-height:.95;letter-spacing:.01em;color:var(--ink);-webkit-text-stroke:2px currentColor}
 .mast .sub{font-weight:700;font-size:15px;max-width:36ch}
-.since{position:absolute;right:6px;top:-6px;width:84px;height:84px;border-radius:50%;border:3px solid var(--red);color:var(--red);display:grid;place-items:center;text-align:center;font:800 11px/1.05 var(--f-body);letter-spacing:.08em;text-transform:uppercase;transform:rotate(-14deg)}
+.since{position:absolute;right:-6px;top:-40px;width:84px;height:84px;border-radius:50%;border:3px solid var(--red);color:var(--red);display:grid;place-items:center;text-align:center;font:800 11px/1.05 var(--f-body);letter-spacing:.08em;text-transform:uppercase;transform:rotate(-14deg)}
 .since b{display:block;font:400 26px/1 var(--f-display)}
 .clipwrap{position:relative;transform:rotate(1.2deg)}
-.clip{position:absolute;top:-16px;left:34px;width:20px;height:46px;border:3px solid #8e949e;border-radius:10px;z-index:2}
-.clip::after{content:"";position:absolute;left:3px;top:8px;width:8px;height:30px;border:3px solid #8e949e;border-radius:6px}
 .about{max-width:70ch;font-size:15px}
 
 /* admission ticket */
 .ticket{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 112px;background:var(--card);border:2px solid var(--ink);border-radius:14px;box-shadow:5px 5px 0 var(--ink)}
-.ticket .main{padding:16px 18px 22px;display:grid;gap:8px;border-right:2px dashed var(--ink);position:relative}
+.ticket .main{padding:16px 18px 22px;display:grid;gap:8px;border-right:2px dashed var(--ink);position:relative;container-type:inline-size}
 .ticket .main::before,.ticket .main::after{content:"";position:absolute;right:-11px;width:20px;height:20px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
 .ticket .main::before{top:-11px;clip-path:inset(50% 0 0 0)}
 .ticket .main::after{bottom:-11px;clip-path:inset(0 0 50% 0)}
 .ticket .adm{display:flex;gap:6px 10px;flex-wrap:wrap;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
 .ticket .adm b{background:var(--red);color:#fff;padding:2px 8px;border-radius:3px}
-.ticket .vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center}
+.ticket .vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px 24px;align-items:center}
 .ticket .tm{display:flex;gap:10px;align-items:center;min-width:0;text-decoration:none}
 .ticket .tm.r{justify-content:flex-end;text-align:right}
-.ticket .tm b{display:block;font-family:var(--f-display);font-weight:400;font-size:clamp(20px,3vw,28px);line-height:1}
+.ticket .tm b{display:block;font-family:var(--f-display);font-weight:400;font-size:clamp(20px,3vw,28px);line-height:1;white-space:nowrap}
 .ticket .tm small{font-weight:700;font-size:12px}
 .ticket .tm.l b{color:var(--dim)}
 .ticket .stub{display:grid;align-content:center;justify-items:center;gap:6px;padding:10px;text-align:center;font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
 .ticket .stub .big{font-family:var(--f-display);font-size:28px;letter-spacing:0;line-height:1}
 .ticket .stub .bc{width:76px;height:22px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px)}
 .ticket .scrawl{position:absolute;right:124px;bottom:-14px;transform:rotate(-5deg);font-size:24px;background:var(--paper);padding:0 6px}
+@container (max-width:380px){.ticket .vs{grid-template-columns:1fr;gap:4px}.ticket .tm.r{justify-content:flex-end;text-align:left;flex-direction:row-reverse}.ticket .vs>.hand{justify-self:start;margin-left:56px;line-height:1}}
 
 /* board / standings */
 .board{border:2px solid var(--ink);border-radius:14px;background:var(--card);box-shadow:5px 5px 0 var(--ink);overflow:hidden}
@@ -213,7 +210,7 @@ footer.site{border-top:2px dashed #17181c55;padding-block:20px 40px;color:var(--
 @media (max-width:560px){
   .ticket{grid-template-columns:1fr}.ticket .main{border-right:0;border-bottom:2px dashed var(--ink)}
   .ticket .main::before,.ticket .main::after{display:none}.ticket .scrawl{right:12px}
-  .ticket .vs{grid-template-columns:1fr}.ticket .tm.r{justify-content:flex-start;text-align:left;flex-direction:row-reverse}
+
   .prof,.thead{grid-template-columns:1fr}
   .case .tro,.case .plaques{grid-template-columns:repeat(2,minmax(0,1fr))}
   .since{position:static;transform:rotate(-8deg)}

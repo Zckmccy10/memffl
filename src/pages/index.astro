@@ -27,20 +27,19 @@ const rows = teamList
   // Teams with less than a full season of games sit below the established ones.
   .sort((a, b) => (b.r.gp >= 14) - (a.r.gp >= 14) || b.r.pct - a.r.pct || b.r.ppg - a.r.ppg);
 const rookie = (r) => r.gp < 14;
-const markColors = ["#d3262f", "#2f57c4", "#17181c"];
+const markColors = ["var(--red)", "var(--blue)"];
 const yearsRunning = new Date().getFullYear() - site.founded;
 ---
 <Base active="Home">
   <section class="hero">
     <div class="mast">
       <Fragment set:html={doodleSVG} />
-      <h1><span class="r">{site.shortName.slice(0, 2)}</span><span class="b">{site.shortName.slice(2)}</span></h1>
+      <h1>{site.shortName}</h1>
       <div class="sub">The {site.name}. <mark>{site.tagline}</mark></div>
       <div class="since"><span>Since<b>'{String(site.founded).slice(-2)}</b>{yearsRunning} yrs</span></div>
     </div>
     {featured && (
       <div class="clipwrap">
-        <span class="clip" aria-hidden="true"></span>
         <div class="ticket">
           <div class="main">
             <div class="adm"><b>Admit one</b><span>Last week</span><span>{lw.year} · Wk {lw.week}{featured.label && featured.label !== "Playoffs" ? ` · ${featured.label}` : ""}</span></div>
@@ -65,7 +64,7 @@ const yearsRunning = new Date().getFullYear() - site.founded;
     <div class="board">
       {rows.map(({ t, r }, i) => (
         <div class="srow">
-          <span class:list={["mk", { c1: i === 0 }]} style={`color:${markColors[i % 3]}`}>{i + 1}</span>
+          <span class:list={["mk", { c1: i === 0 }]} style={`color:${markColors[i] ?? "var(--ink)"}`}>{i + 1}</span>
           <Badge team={t} size={32} />
           <span class="nm">
             <a class="tlink" href={`/teams/${t.slug}/`}><span class="tn">{t.name}</span></a>
