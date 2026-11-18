@@ -13,3 +13,90 @@ owners:
       - id: '0001'
         from: 2004
         to: null
+  - name: Alan
+    photo: ''
+    note: ''
+    franchises:
+      - id: '0002'
+        from: 2004
+        to: null
+  - name: Ed
+    photo: ''
+    note: ''
+    franchises:
+      - id: '0003'
+        from: 2004
+        to: null
+  - name: Jimmy
+    photo: ''
+    note: ''
+    franchises:
+      - id: '0004'
+        from: 2004
+        to: null
+  - name: Karl
+    photo: ''
+    note: ''
+    franchises:
+      - id: '0005'
+        from: 2004
+        to: null
+  - name: Paul
+    photo: ''
+    note: ''
+    franchises:
+      - id: '0006'
+        from: 2004
+        to: null
+  - name: Tony
+    photo: ''
+    note: ''
+    franchises:
+      - id: '0007'
+        from: 2012
+        to: null
+      - id: '0013'
+        from: 2005
+        to: 2011
+  - name: Zack
+    photo: ''
+    note: ''
+    franchises:
+      - id: '0008'
+        from: 2016
+        to: null
+  - name: Donnie
+    photo: ''
+    note: ''
+    franchises:
+      - id: '0009'
+        from: 2004
+        to: null
+  - name: Ryan
+    photo: ''
+    note: ''
+    franchises:
+      - id: '0010'
+        from: 2012
+        to: null
+  - name: Vince
+    photo: ''
+    note: ''
+    franchises:
+      - id: '0011'
+        from: 2018
+        to: 2023
+  - name: Joe
+    photo: ''
+    note: ''
+    franchises:
+      - id: '0011'
+        from: 2024
+        to: null
+  - name: Frank
+    photo: ''
+    note: ''
+    franchises:
+      - id: '0013'
+        from: 2026
+        to: null
