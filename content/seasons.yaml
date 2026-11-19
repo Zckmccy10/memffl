@@ -1,12 +1,16 @@
-# Final finishes for each season. MyFantasyLeague doesn't share playoff brackets
-# publicly, so these are filled in by hand. Use the team name as it was that season.
-# toiletBowl is the team that took home the Toilet Bowl.
-
 seasons:
   - year: 2022
     champion: Beer Gut Mutts
+    runnerUp: ''
+    third: ''
+    toiletBowl: ''
   - year: 2023
     champion: Purple Cobras
     runnerUp: Beer Gut Mutts
     third: Hackers
     toiletBowl: Scranton Stranglers
+  - year: 2025
+    champion: Nightmares
+    runnerUp: Jokers Wild
+    third: Black Mamba
+    toiletBowl: Red Knights
